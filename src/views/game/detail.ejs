@@ -1,0 +1,62 @@
+<%- include('../partials/header', { pageTitle: game ? game.name : 'Chi tiết Game' }) %>
+
+<div class="game-detail-container">
+    
+    <div class="game-gallery">
+        <div class="main-image">
+            <img src="<%= game.imageUrl %>" alt="<%= game.name %>">
+        </div>
+        <div class="thumbnail-list">
+            <img src="<%= game.imageUrl %>" alt="thumbnail" class="active">
+        </div>
+    </div>
+
+    <div class="game-info">
+        <h1><%= game.name %></h1>
+        <p class="platform">Nền tảng: <span>Steam</span></p>
+
+        <div class="price-box">
+            <span class="old-price"><%= (game.oldPrice).toLocaleString('vi-VN') %>đ</span>
+            <span class="new-price"><%= (game.price).toLocaleString('vi-VN') %>đ</span>
+        </div>
+
+        <div class="buy-actions">
+            <button id="add-to-cart-btn" class="add-to-cart-btn" data-game-id="<%= game._id %>">
+                <i class="fas fa-shopping-cart"></i>
+                THÊM VÀO GIỎ HÀNG
+            </button>
+        </div>
+        
+        <div class="store-policy">
+            <p><i class="fas fa-check-circle"></i> Cam kết giá tốt nhất thị trường</p>
+            <p><i class="fas fa-check-circle"></i> Hỗ trợ 24/7 qua fanpage</p>
+            <p><i class="fas fa-check-circle"></i> Bảo hành trọn đời</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="game-description-tabs">
+    <nav class="tab-nav">
+        <button class="tab-link active" data-tab="tab-1">Mô Tả</button>
+        <button class="tab-link" data-tab="tab-2">Yêu Cầu Hệ Thống</button>
+    </nav>
+    <div class="tab-content-container">
+        <div id="tab-1" class="tab-content active">
+            <h3>Mô Tả Sản Phẩm</h3>
+            <p><%- game.description %></p>
+        </div>
+        <div id="tab-2" class="tab-content">
+            <h3>Yêu Cầu Hệ Thống</h3>
+            <p><strong>Tối thiểu (Minimum):</strong></p>
+            <ul>
+                <li><strong>OS:</strong> Windows 10</li>
+                <li><strong>Processor:</strong> Intel Core i5-2500K / AMD FX-6300</li>
+                <li><strong>Memory:</strong> 8 GB RAM</li>
+                <li><strong>Graphics:</strong> NVIDIA GeForce GTX 780 (3 GB) / AMD Radeon R9 290 (4 GB)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

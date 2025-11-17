@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle != 'undefined' ? pageTitle : 'Shop Game' %></title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="container">
+        <div class="top-left-links">
+          <a href="#">Shop Game Bản Quyền Chính Hãng</a>
+        </div>
+        <div class="top-right-links">
+          <a href="#">VỀ KAMIKEY</a>
+          <div class="dropdown">
+            <a href="#" class="dropbtn">Chính sách <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">Chính sách bảo hành</a>
+              <a href="#">Chính sách đổi trả</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <a href="#" class="dropbtn">News <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">Tin tức</a>
+              <a href="#">Hỏi đáp</a>
+            </div>
+          </div>
+          <a href="#">Liên hệ</a>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <div class="container">
+        <a href="/" class="logo">KAMIKEY</a>
+        
+        <form class="search-bar">
+          <input type="text" placeholder="Gõ để tìm kiếm...">
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        
+        <div class="user-actions">
+          <div class="social-icons">
+            <a href="https://facebook.com/kamikey" target="_blank" class="social-link" title="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://tiktok.com/@kamikey" target="_blank" class="social-link" title="TikTok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://instagram.com/kamikey" target="_blank" class="social-link" title="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+          <a href="/login" class="login-link">ĐĂNG NHẬP / ĐĂNG KÝ</a>
+          <a href="/cart" class="cart-icon" title="Giỏ hàng">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+        </div>
+
+      </div>
+    </nav>
+    
+    <div class="category-nav">
+      <div class="container">
+        
+        <div class="all-categories dropdown-hover">
+          <a href="#" class="dropbtn">
+            <i class="fas fa-bars"></i> 
+            Danh mục sản phẩm 
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </a>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="#">Mua Game Steam</a></li>
+              <li><a href="#">Mua Steam Wallet Code</a></li>
+              <li><a href="#">Mua Thẻ Gift Card</a></li>
+              <li><a href="#">Steam Key Chính Hãng</a></li>
+              <li><a href="#">Mua Game Chuyển Vùng</a></li>
+              <li><a href="#">Tài Khoản Steam Online Mới</a></li>
+              <li><a href="#">Tài Khoản Steam Offline</a></li>
+              <li><a href="#">Tài Khoản Steam Nhiều Game</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>

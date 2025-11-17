@@ -12,9 +12,20 @@
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
-  }
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11",
+    "tailwindcss": "^4.1.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thien100305/e-commit-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thien100305/e-commit-project/issues"
+  },
+  "homepage": "https://github.com/thien100305/e-commit-project#readme"
 }
