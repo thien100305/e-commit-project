@@ -1,0 +1,83 @@
+<%- include('../partials/header', { pageTitle: game.name }) %>
+
+<div class="container page-content">
+  <div class="game-detail-wrapper">
+    
+    <nav class="breadcrumbs">
+      <a href="/">Trang chủ</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="#"><%= game.category %></a>
+      <i class="fas fa-chevron-right"></i>
+      <span><%= game.name %></span>
+    </nav>
+
+    <div class="game-detail-container">
+      <div class="game-gallery">
+        <div class="main-image">
+          <img src="<%= game.imageUrl %>" alt="<%= game.name %>">
+        </div>
+        <div class="thumbnail-list">
+          <img src="<%= game.imageUrl %>" alt="thumbnail" class="active">
+        </div>
+      </div>
+
+      <div class="game-info">
+        <h1><%= game.name %></h1>
+        
+        <div class="info-meta">
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(21 đánh giá)</span>
+          </div>
+          <span class="divider">|</span>
+          <span class="purchase-count">Đã bán: 193</span>
+        </div>
+
+        <div class="price-box">
+          <span class="price-label">Giá từ:</span>
+          <span class="main-price"><%= (game.price).toLocaleString('vi-VN') %>đ</span>
+        </div>
+
+        <div class="version-options">
+          <label>Phiên bản</label>
+          <div class="version-buttons">
+            <button class="version-btn active" data-price="<%= game.price %>">
+              <strong>Standard Edition</strong>
+              <span><%= (game.price).toLocaleString('vi-VN') %>đ</span>
+            </button>
+            <button class="version-btn" data-price="1450000">
+              <strong>Complete Edition</strong>
+              <del>1.850.000đ</del>
+              <span>1.450.000đ</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="buy-buttons">
+          <button class="buy-now-btn">
+            MUA NGAY
+            <span>Siêu Tốc Qua Mobile Banking</span>
+          </button>
+          <button class="add-to-cart-btn" id="add-to-cart-btn" data-game-id="<%= game._id %>">
+            THÊM VÀO GIỎ
+          </button>
+        </div>
+
+        <ul class="store-policy">
+          <li>Steam CDKey game Stellar Blade chính hãng</li>
+          <li>Steam Key Asia nạp được <strong>Acc Steam Việt Nam</strong></li>
+          <li>Nạp Key và chơi game <strong>không cần</strong> sử dụng VPN</li>
+          <li>Steam Key nhập từ <strong>nhà phân phối</strong> chính thức</li>
+          <li><strong>NÓI KHÔNG</strong> với Steam Key giá rẻ không rõ nguồn gốc</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

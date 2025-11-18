@@ -1,0 +1,99 @@
+</main> <footer>
+    <div class="container footer-content">
+      <div class="footer-col">
+        <h4>Về Kamikey</h4>
+        <ul>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Điều khoản dịch vụ</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ</h4>
+        <ul>
+          <li><a href="#">Hỏi đáp</a></li>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="#">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sản phẩm</h4>
+        <ul>
+          <li><a href="#">Game Steam</a></li>
+          <li><a href="#">Steam Wallet</a></li>
+          <li><a href="#">Gift Card</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Theo dõi chúng tôi</h4>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Kamikey. Đã đăng ký Bản quyền.
+    </div>
+  </footer>
+
+  <div id="auth-modal-overlay" class="auth-modal-overlay">
+    <div id="auth-modal" class="auth-modal">
+      <button id="auth-modal-close" class="auth-modal-close">&times;</button>
+      
+      <div class="auth-modal-tabs">
+        <h3 class="auth-tab-link active" data-tab="login">ĐĂNG NHẬP</h3>
+        <h3 class="auth-tab-link" data-tab="register">ĐĂNG KÝ</h3>
+      </div>
+
+      <p id="auth-error-message" class="auth-error-text"></p>
+
+      <div id="login" class="auth-tab-content active">
+        <form id="login-form-modal">
+          <div class="auth-form-group">
+            <label for="login-email">TÊN TÀI KHOẢN HOẶC ĐỊA CHỈ EMAIL *</label>
+            <input type="text" id="login-email" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="login-password">MẬT KHẨU *</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <div class="auth-form-row">
+            <label class="auth-remember-me">
+              <input type="checkbox" id="login-remember"> Ghi nhớ mật khẩu
+            </label>
+            <a href="#" class="auth-forgot-password">Quên mật khẩu?</a>
+          </div>
+          <button type="submit" class="auth-modal-button">Đăng nhập</button>
+        </form>
+      </div>
+
+      <div id="register" class="auth-tab-content">
+        <form id="register-form-modal">
+          <div class="auth-form-group">
+            <label for="register-username">TÊN TÀI KHOẢN *</label>
+            <input type="text" id="register-username" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="register-email">ĐỊA CHỈ EMAIL *</label>
+            <input type="email" id="register-email" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="register-password">MẬT KHẨU *</label>
+            <input type="password" id="register-password" required>
+          </div>
+          <p class="auth-policy-text">
+            Thông tin cá nhân của bạn sẽ được sử dụng để tăng trải nghiệm... (xem thêm tại <a href="#">chính sách riêng tư</a>.)
+          </p>
+          <button type="submit" class="auth-modal-button">Đăng ký</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <script src="/js/script.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>
