@@ -1,0 +1,15 @@
+<h1>User Manager</h1>
+<table>
+<tr>
+<th>Email</th>
+<th>Role</th>
+</tr>
+
+
+<% users.forEach(u => { %>
+<tr>
+<td><%= u.email %></td>
+<td><%= u.role %></td>
+</tr>
+<% }) %>
+</table>

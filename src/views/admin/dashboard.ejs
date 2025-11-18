@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="/css/argon.css" />
+</head>
+<body>
+<div class="sidebar">
+<h3>Admin</h3>
+<ul>
+<li><a href="/admin/dashboard">Dashboard</a></li>
+<li><a href="/admin/games">Games</a></li>
+<li><a href="/admin/orders">Orders</a></li>
+<li><a href="/admin/users">Users</a></li>
+</ul>
+</div>
+
+
+<div class="content">
+<h1>Dashboard</h1>
+
+
+<div class="stats-grid">
+<div class="card">Users: <%= totalUsers %></div>
+<div class="card">Games: <%= totalGames %></div>
+<div class="card">Orders: <%= totalOrders %></div>
+<div class="card">Total Sales: $<%= sales %></div>
+</div>
+
+
+<canvas id="salesChart"></canvas>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('salesChart');
+new Chart(ctx, {
+type: 'line',
+data: {
+labels: ['Jan','Feb','Mar','Apr','May'],
+datasets: [{ data: [120,190,300,500,200], borderWidth: 2 }]
+}
+});
+</script>
+</body>
+</html>

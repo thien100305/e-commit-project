@@ -1,0 +1,17 @@
+<h1>Order Manager</h1>
+<table>
+<tr>
+<th>User</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
+
+
+<% orders.forEach(o => { %>
+<tr>
+<td><%= o.user.email %></td>
+<td>$<%= o.totalPrice %></td>
+<td><%= o.createdAt.toLocaleDateString() %></td>
+</tr>
+<% }) %>
+</table>

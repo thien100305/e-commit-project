@@ -1,0 +1,25 @@
+<h1>Game Manager</h1>
+<a href="/admin/games/create">+ Add Game</a>
+
+
+<table>
+<tr>
+<th>Title</th>
+<th>Price</th>
+<th>Actions</th>
+</tr>
+
+
+<% games.forEach(g => { %>
+<tr>
+<td><%= g.title %></td>
+<td>$<%= g.price %></td>
+<td>
+<a href="/admin/games/<%= g._id %>/edit">Edit</a>
+<form method="POST" action="/admin/games/<%= g._id %>/delete">
+<button>Delete</button>
+</form>
+</td>
+</tr>
+<% }) %>
+</table>
