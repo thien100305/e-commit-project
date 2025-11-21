@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Game Mới</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .back-link { display: block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Thêm Game Mới vào Kho</h1>
+    
+    <form action="/admin/add-game" method="POST">
+        <div class="form-group">
+            <label>Tên Game</label>
+            <input type="text" name="title" required placeholder="Ví dụ: Black Myth: Wukong">
+        </div>
+
+        <div class="form-group">
+            <label>Link Ảnh (URL)</label>
+            <input type="text" name="imageUrl" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label>Giá ($)</label>
+            <input type="number" name="price" required step="0.01">
+        </div>
+
+        <div class="form-group">
+            <label>Mô tả</label>
+            <textarea name="description" rows="4"></textarea>
+        </div>
+
+        <button type="submit">Lưu Game</button>
+    </form>
+
+    <a href="/" class="back-link">← Quay lại trang chủ</a>
+</body>
+</html>

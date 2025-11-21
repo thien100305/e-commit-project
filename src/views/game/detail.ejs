@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title><%= game.title %> - Chi tiết</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .detail-container { display: flex; gap: 40px; background: var(--card-bg); padding: 30px; border-radius: 20px; margin-top: 30px; flex-wrap: wrap; }
+        .detail-img { flex: 1; min-width: 300px; }
+        .detail-img img { width: 100%; border-radius: 10px; }
+        .detail-info { flex: 1.5; }
+        .detail-price { font-size: 2rem; color: var(--buy-btn); font-weight: bold; margin: 20px 0; }
+        
+        /* Phần Review */
+        .review-section { margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; }
+        .review-item { background: #2c2c2c; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .review-user { font-weight: bold; color: var(--accent-color); }
+        .star { color: gold; }
+        
+        /* Form Review */
+        .review-form textarea { width: 100%; padding: 10px; background: #121212; color: white; border: 1px solid #444; border-radius: 5px; margin: 10px 0; }
+        .review-form select { padding: 5px; background: #121212; color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/"><h1>🎮 CyberStore</h1></a>
+        <div class="nav-group">
+            <% let totalQty = 0; if (cart) cart.forEach(i => totalQty += i.quantity); %>
+            <a href="/cart" class="btn btn-cart">Giỏ hàng (<%= totalQty %>)</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="/" class="btn btn-detail" style="width: auto; display: inline-block; margin-bottom: 20px;">← Quay lại</a>
+
+        <div class="detail-container">
+            <div class="detail-img">
+                <img src="<%= game.imageUrl %>" alt="<%= game.title %>">
+            </div>
+            <div class="detail-info">
+                <h1 style="font-size: 2.5rem; margin-top: 0;"><%= game.title %></h1>
+                <div class="detail-price">$<%= game.price %></div>
+                <p style="color: #ccc; line-height: 1.6;"><%= game.description %></p>
+                <a href="/cart/add/<%= game._id %>" class="btn btn-buy" style="padding: 15px 30px; font-size: 1.2rem;">THÊM VÀO GIỎ</a>
+            </div>
+        </div>
+
+        <div class="review-section">
+            <h3>⭐ Đánh giá từ người chơi</h3>
+
+            <% if (currentUser) { %>
+                <form action="/game/<%= game._id %>/review" method="POST" class="review-form">
+                    <label>Chọn số sao:</label>
+                    <select name="rating">
+                        <option value="5">⭐⭐⭐⭐⭐ (Tuyệt vời)</option>
+                        <option value="4">⭐⭐⭐⭐ (Tốt)</option>
+                        <option value="3">⭐⭐⭐ (Bình thường)</option>
+                        <option value="2">⭐⭐ (Tệ)</option>
+                        <option value="1">⭐ (Quá tệ)</option>
+                    </select>
+                    <br>
+                    <textarea name="comment" rows="3" placeholder="Viết cảm nhận của bạn..." required></textarea>
+                    <button type="submit" class="btn btn-admin">Gửi Đánh Giá</button>
+                </form>
+            <% } else { %>
+                <p><a href="/login" style="color: var(--accent-color);">Đăng nhập</a> để viết đánh giá.</p>
+            <% } %>
+
+            <div style="margin-top: 20px;">
+                <% if (game.reviews && game.reviews.length > 0) { %>
+                    <% game.reviews.reverse().forEach(review => { %>
+                        <div class="review-item">
+                            <div class="review-user">
+                                <%= review.username %> 
+                                <span class="star"><%= '⭐'.repeat(review.rating) %></span>
+                            </div>
+                            <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;"><%= review.comment %></p>
+                            <small style="color: #666;"><%= new Date(review.date).toLocaleDateString('vi-VN') %></small>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p style="color: #888; font-style: italic;">Chưa có đánh giá nào.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,24 +1,40 @@
 // src/app.js
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const gameRoutes = require('./routes/gameRoutes'); // Đảm bảo file này tồn tại
+
 const app = express();
 
-// Middleware cơ bản
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Cấu hình View Engine
+app.set('view engine', 'ejs');
+// Vì app.js nằm trong src, nên views cũng nằm trong src/views => __dirname + '/views' là đúng
+app.set('views', path.join(__dirname, 'views')); 
 
-// Cấu hình Static Files (cho Dev 4)
+// Cấu hình Static Files (CSS/JS/Images)
+// public nằm trong src/public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cấu hình View Engine (cho Dev 4)
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Test Route cơ bản
-app.get('/', (req, res) => {
-    res.render('home', { title: 'Game Store' });
+// Session
+app.use(session({
+    secret: 'my_secret_key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
+
+// Middleware Global Variables
+app.use((req, res, next) => {
+    res.locals.cart = req.session.cart || [];
+    res.locals.currentUser = req.session.user || null;
+    res.locals.isAuthenticated = !!req.session.user;
+    next();
 });
 
-// Tích hợp Routes sẽ nằm ở đây (ví dụ: require('./routes/index'))
+// ⚠️ KẾT NỐI ROUTE (QUAN TRỌNG NHẤT)
+app.use('/', gameRoutes);
 
 module.exports = app;

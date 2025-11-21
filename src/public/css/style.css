@@ -1,0 +1,167 @@
+/* src/public/css/style.css */
+
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --accent-color: #bb86fc;
+    --primary-btn: #3700b3;
+    --buy-btn: #03dac6;
+    --danger-btn: #cf6679;
+    --nav-bg: #2c2c2c;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; padding: 0; }
+
+/* --- HEADER --- */
+header {
+    background-color: var(--nav-bg);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-size: 1.5rem; }
+
+.nav-group { display: flex; align-items: center; gap: 15px; }
+
+.search-box { display: flex; background: #333; border-radius: 20px; padding: 5px 15px; }
+.search-box input { background: transparent; border: none; color: white; outline: none; width: 200px; }
+.search-box button { background: transparent; border: none; color: var(--accent-color); cursor: pointer; font-weight: bold; }
+
+/* BUTTONS */
+.btn { padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; border: none; cursor: pointer; display: inline-block; text-align: center; }
+.btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+.btn-login { border: 1px solid var(--accent-color); color: var(--accent-color); background: transparent; border-radius: 20px; }
+.btn-admin { background: var(--primary-btn); color: white; }
+.btn-cart { background: #ff9800; color: black; }
+.btn-buy { background: var(--buy-btn); color: black; width: 90%; margin-top: 5px; }
+.btn-detail { background: #444; color: white; width: 90%; margin-top: 5px; }
+.btn-edit, .btn-delete { padding: 5px 10px; font-size: 0.8rem; margin-top: 5px; width: 48%; }
+.btn-edit { background: var(--accent-color); color: black; }
+.btn-delete { background: var(--danger-btn); color: white; }
+
+/* --- CONTAINER --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+/* --- GAME GRID (ĐÃ SỬA LỖI DÀI/NGẮN) --- */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Tự động chia cột */
+    gap: 25px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column; /* Xếp dọc */
+    height: 100%; /* Để các thẻ cao bằng nhau */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+}
+
+.card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+
+/* Ảnh trong thẻ: Cố định chiều cao để không bị dài */
+.card img {
+    width: 100%;
+    height: 160px; /* Chiều cao cố định */
+    object-fit: cover; /* Cắt ảnh vừa khung, không méo */
+    background-color: #000;
+}
+
+.card-body {
+    padding: 15px;
+    flex-grow: 1; /* Đẩy nội dung giãn ra */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy nút xuống đáy */
+}
+
+.card-title { font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-price { color: var(--buy-btn); font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; }
+
+.admin-controls { display: flex; justify-content: space-between; margin-top: 10px; border-top: 1px solid #444; padding-top: 10px; }
+
+/* --- PAGINATION --- */
+.pagination { text-align: center; margin-top: 40px; }
+.pagination a { padding: 8px 15px; margin: 0 5px; background: #333; border-radius: 4px; }
+.pagination a.active { background: var(--accent-color); color: black; font-weight: bold; }
+
+/* --- TRANG CHI TIẾT (FIX LỖI TRÀN) --- */
+.detail-container {
+    display: flex;
+    gap: 30px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-top: 20px;
+    align-items: flex-start; /* Căn trên cùng */
+}
+
+/* Khung ảnh chi tiết: Giới hạn chiều rộng */
+.detail-img {
+    flex: 1;
+    max-width: 400px; /* Không cho ảnh quá to */
+}
+
+.detail-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+}
+
+/* Khung thông tin */
+.detail-info {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-info h1 { font-size: 2rem; margin-top: 0; line-height: 1.2; color: var(--accent-color); }
+.detail-price { font-size: 2rem; color: var(--buy-btn); font-weight: bold; margin: 10px 0; }
+.detail-desc { color: #ccc; margin-bottom: 30px; text-align: justify; }
+
+/* --- AUTH FORMS --- */
+.auth-body { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+.auth-card { background: var(--card-bg); padding: 40px; border-radius: 15px; width: 100%; max-width: 380px; text-align: center; border: 1px solid #333; }
+.auth-card input { width: 100%; padding: 12px; margin-bottom: 15px; background: #121212; border: 1px solid #444; color: white; border-radius: 5px; box-sizing: border-box; }
+.btn-submit { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+
+/* --- RESPONSIVE (Mobile) --- */
+@media (max-width: 768px) {
+    .detail-container { flex-direction: column; } /* Chi tiết game xếp dọc trên đt */
+    .detail-img { max-width: 100%; }
+    header { flex-direction: column; gap: 10px; }
+    .search-box input { width: 150px; }
+}
+
+/* --- SLIDER --- */
+.slider-container { max-width: 1100px; margin: 20px auto; border-radius: 15px; overflow: hidden; position: relative; height: 350px; }
+.slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
+.slide { min-width: 100%; height: 100%; position: relative; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.slide-content { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 8px; }
+.slide-content h2 { margin: 0; color: var(--accent-color); }
