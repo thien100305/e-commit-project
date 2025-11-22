@@ -1,15 +1,19 @@
-const mongoose = require("mongoose");
+// src/models/Order.js
+const mongoose = require('mongoose');
 
-const OrderSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  items: [
-    {
-      game: { type: mongoose.Schema.Types.ObjectId, ref: "Game", required: true },
-      quantity: { type: Number, default: 1 }
-    }
-  ],
-  totalPrice: Number,
-  status: { type: String, default: "success" }, // thanh toán giả
-}, { timestamps: true });
+const orderSchema = new mongoose.Schema({
+    customerName: { type: String, required: true },
+    address: { type: String, required: true },
+    phone: { type: String, required: true },
+    totalPrice: { type: Number, required: true },
+    date: { type: Date, default: Date.now },
+    items: [
+        {
+            gameTitle: String,
+            quantity: Number,
+            price: Number
+        }
+    ]
+});
 
-module.exports = mongoose.model("Order", OrderSchema);
+module.exports = mongoose.model('Order', orderSchema);
