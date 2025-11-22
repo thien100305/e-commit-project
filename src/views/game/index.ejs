@@ -63,38 +63,67 @@
     </div>
     <% } %>
 
-    <div class="container">
-        <div class="game-grid">
-            <% games.forEach(game => { %>
-                <div class="card">
-                    <a href="/game/<%= game._id %>"><img src="<%= game.imageUrl %>"></a>
-                    <div class="card-body">
-                        <div class="card-title"><%= game.title %></div>
-                        <div class="card-price">$<%= game.price %></div>
-                        
-                        <a href="/cart/add/<%= game._id %>" class="btn btn-buy">Mua Ngay</a>
-                        <a href="/game/<%= game._id %>" class="btn btn-detail">Chi tiết</a>
+    <div class="container main-layout">
+        
+        <aside class="sidebar">
+            <h3>📂 Danh Mục</h3>
+            <ul class="category-list">
+                <li>
+                    <a href="/" class="<%= currentCategory == '' ? 'active-cat' : '' %>">
+                        Tất cả game
+                    </a>
+                </li>
+                
+                <% categories.forEach(cat => { %>
+                    <li>
+                        <a href="/?category=<%= cat %>&search=<%= searchQuery %>" 
+                           class="<%= currentCategory == cat ? 'active-cat' : '' %>">
+                            <%= cat %>
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+        </aside>
 
-                        <% if (currentUser && currentUser.role === 'admin') { %>
-                            <div class="admin-controls">
-                                <a href="/admin/edit/<%= game._id %>" class="btn btn-edit">Sửa</a>
-                                <form action="/admin/delete/<%= game._id %>" method="POST" onsubmit="return confirm('Xóa?');">
-                                    <button type="submit" class="btn btn-delete">Xóa</button>
-                                </form>
+        <main class="content">
+            <div class="game-grid">
+                <% if (games.length === 0) { %>
+                    <p style="width: 100%; text-align: center;">Chưa có game nào thuộc thể loại này.</p>
+                <% } else { %>
+                    <% games.forEach(game => { %>
+                        <div class="card">
+                            <a href="/game/<%= game._id %>"><img src="<%= game.imageUrl %>"></a>
+                            <div class="card-body">
+                                <div class="card-title"><%= game.title %></div>
+                                <small style="color: #888; display: block; margin-bottom: 5px;"><%= game.category %></small>
+                                <div class="card-price">$<%= game.price %></div>
+                                
+                                <a href="/checkout/quick/<%= game._id %>" class="btn btn-buy">Mua Ngay</a>
+                                <a href="/game/<%= game._id %>" class="btn btn-detail">Chi tiết</a>
+
+                                <% if (currentUser && currentUser.role === 'admin') { %>
+                                    <div class="admin-controls">
+                                        <a href="/admin/edit/<%= game._id %>" class="btn btn-edit">Sửa</a>
+                                        <form action="/admin/delete/<%= game._id %>" method="POST" onsubmit="return confirm('Xóa?');">
+                                            <button type="submit" class="btn btn-delete">Xóa</button>
+                                        </form>
+                                    </div>
+                                <% } %>
                             </div>
-                        <% } %>
-                    </div>
-                </div>
-            <% }) %>
-        </div>
-
-        <% if (totalPages > 1) { %>
-            <div class="pagination">
-                <% for(let i = 1; i <= totalPages; i++) { %>
-                    <a href="/?page=<%= i %>" class="<%= currentPage == i ? 'active' : '' %>"><%= i %></a>
+                        </div>
+                    <% }) %>
                 <% } %>
             </div>
-        <% } %>
+            
+            <% if (totalPages > 1) { %>
+                <div class="pagination">
+                    <% for(let i = 1; i <= totalPages; i++) { %>
+                        <a href="/?page=<%= i %>&category=<%= currentCategory %>&search=<%= searchQuery %>" 
+                           class="<%= currentPage == i ? 'active' : '' %>"><%= i %></a>
+                    <% } %>
+                </div>
+            <% } %>
+        </main>
     </div>
 
     <script>

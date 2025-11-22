@@ -37,6 +37,18 @@
             <textarea name="description" rows="4"><%= game.description %></textarea>
         </div>
 
+        <div class="form-group">
+            <label>Thể loại</label>
+            <select name="category" style="width: 100%; padding: 10px; border-radius: 5px;">
+                <% 
+                const cats = ["Hành động", "Nhập vai (RPG)", "Thể thao", "Chiến thuật", "Kinh dị", "Phiêu lưu", "Mô phỏng", "MOBA"];
+                cats.forEach(c => { 
+                %>
+                    <option value="<%= c %>" <%= game.category === c ? 'selected' : '' %>><%= c %></option>
+                <% }) %>
+            </select>
+        </div>
+
         <button type="submit">Lưu Thay Đổi</button>
     </form>
 
