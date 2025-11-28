@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - CyberStore</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header style="position: absolute; top: 0; width: 100%; background: transparent; box-shadow: none;">
+        <a href="/"><h1>🎮 CyberStore</h1></a>
+    </header>
+
+    <div class="auth-body">
+        <div class="auth-card">
+            <h2>Đăng Ký</h2>
+            <p style="color: #888; margin-bottom: 20px;">Tạo tài khoản để mua sắm & đánh giá game</p>
+
+            <% if (error) { %>
+                <div class="error-msg">⚠️ <%= error %></div>
+            <% } %>
+
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label>Tên tài khoản mới</label>
+                    <input type="text" name="username" required placeholder="Chọn tên đăng nhập...">
+                </div>
+
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" name="password" required placeholder="Nhập mật khẩu...">
+                </div>
+
+                <button type="submit" class="btn-submit">Tạo Tài Khoản</button>
+            </form>
+
+            <div class="auth-link">
+                Đã có tài khoản rồi? <a href="/login">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
