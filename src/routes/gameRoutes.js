@@ -7,52 +7,44 @@ const cartController = require('../controllers/cartController');
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/auth');
 
-// ==============================================
-// 1. CÁC TRANG CÔNG KHAI (AI CŨNG VÀO ĐƯỢC)
-// ==============================================
+// --- 1. AUTHENTICATION ---
+router.get('/login', authController.getLogin);
+router.post('/login', authController.postLogin);
+router.get('/register', authController.getRegister);
+router.post('/register', authController.postRegister);
+router.post('/logout', authController.postLogout);
 
-// Trang chủ & Chi tiết game
+// --- 2. PUBLIC (AI CŨNG XEM ĐƯỢC) ---
 router.get('/', gameController.getAllGames);
 router.get('/game/:id', gameController.getGameDetail);
 
-// Đăng nhập & Đăng ký (QUAN TRỌNG: Phải có dòng này mới vào được Login)
-router.get('/login', authController.getLogin); 
-router.post('/login', authController.postLogin);
-
-router.get('/register', authController.getRegister);
-router.post('/register', authController.postRegister);
-
-router.post('/logout', authController.postLogout);
-
-// Giỏ hàng (Xem và Xóa thì ai cũng làm được)
+// Giỏ hàng
 router.get('/cart', cartController.getCart);
-router.get('/cart/remove/:id', cartController.removeFromCart);
 router.get('/cart/add/:id', cartController.addToCart);
+router.get('/cart/remove/:id', cartController.removeFromCart);
 
-
-// ==============================================
-// 2. CÁC TRANG CẦN ĐĂNG NHẬP (USER & ADMIN)
-// ==============================================
-
+// --- 3. USER (PHẢI ĐĂNG NHẬP) ---
 // Đánh giá game
 router.post('/game/:id/review', authMiddleware.requireLogin, gameController.postReview);
 
-// Thanh toán
+// Mua Ngay & Thanh Toán
+router.get('/checkout/quick/:id', authMiddleware.requireLogin, cartController.getQuickCheckout);
 router.get('/cart/checkout', authMiddleware.requireLogin, cartController.getCheckoutPage);
 router.post('/cart/checkout', authMiddleware.requireLogin, cartController.postCheckout);
 
+// --- 4. ADMIN (CHỈ ADMIN MỚI VÀO ĐƯỢC) ---
+// Quản lý Users (MỚI)
+router.get('/admin/users', authMiddleware.requireAdmin, authController.getAllUsers);
+router.post('/admin/users/delete/:id', authMiddleware.requireAdmin, authController.deleteUser);
 
-// ==============================================
-// 3. CÁC TRANG ADMIN (CHỈ ADMIN MỚI VÀO ĐƯỢC)
-// ==============================================
+// Quản lý Đơn hàng
 router.get('/admin/orders', authMiddleware.requireAdmin, cartController.getOrdersPage);
 
+// Quản lý Game (Thêm/Sửa/Xóa)
 router.get('/admin/add-game', authMiddleware.requireAdmin, gameController.getAddGamePage);
 router.post('/admin/add-game', authMiddleware.requireAdmin, gameController.postAddGame);
-
 router.get('/admin/edit/:id', authMiddleware.requireAdmin, gameController.getEditGamePage);
 router.post('/admin/edit/:id', authMiddleware.requireAdmin, gameController.postEditGame);
-
 router.post('/admin/delete/:id', authMiddleware.requireAdmin, gameController.deleteGame);
 
 module.exports = router;
