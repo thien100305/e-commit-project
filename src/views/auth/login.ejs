@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - CyberStore</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header style="position: absolute; top: 0; width: 100%; background: transparent; box-shadow: none;">
+        <a href="/"><h1>🎮 CyberStore</h1></a>
+    </header>
+
+    <div class="auth-body">
+        <div class="auth-card">
+            <h2>Đăng Nhập</h2>
+
+            <% if (error) { %>
+                <div class="error-msg">⚠️ <%= error %></div>
+            <% } %>
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Tên tài khoản</label>
+                    <input type="text" name="username" required placeholder="Nhập username...">
+                </div>
+
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" name="password" required placeholder="Nhập password...">
+                </div>
+
+                <button type="submit" class="btn-submit">Đăng nhập</button>
+            </form>
+
+            <div class="auth-link">
+                Chưa có tài khoản? <a href="/register">Đăng ký tại đây</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

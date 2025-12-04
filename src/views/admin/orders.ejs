@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Đơn Hàng</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+        h1 { text-align: center; color: #333; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: top; }
+        th { background-color: #333; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .total { color: #d9534f; font-weight: bold; }
+        .date { font-size: 0.9em; color: #666; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
+        .item-list li { padding: 2px 0; border-bottom: 1px dashed #eee; }
+        
+        .back-link { display: inline-block; margin-bottom: 15px; text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Quay lại trang chủ</a>
+        <h1>📦 Danh Sách Đơn Hàng</h1>
+
+        <% if (orders.length === 0) { %>
+            <p style="text-align: center;">Chưa có đơn hàng nào.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ngày đặt</th>
+                        <th>Khách hàng</th>
+                        <th>Sản phẩm đã mua</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(order => { %>
+                        <tr>
+                            <td class="date">
+                                <%= new Date(order.date).toLocaleString('vi-VN') %>
+                            </td>
+                            <td>
+                                <strong><%= order.customerName %></strong><br>
+                                📞 <%= order.phone %><br>
+                                🏠 <%= order.address %>
+                            </td>
+                            <td>
+                                <ul class="item-list">
+                                    <% order.items.forEach(item => { %>
+                                        <li>
+                                            - <%= item.gameTitle %> 
+                                            (x<%= item.quantity %>)
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            </td>
+                            <td class="total">$<%= order.totalPrice %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>
