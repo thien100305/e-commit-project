@@ -10,6 +10,7 @@
 
     <header>
         <div class="header-inner">
+<<<<<<< Updated upstream
             
             <div style="display: flex; align-items: center;">
                 <a href="/"><h1>🎮 CyberStore</h1></a>
@@ -33,12 +34,35 @@
                 <button type="submit">🔍</button>
             </form>
 
+=======
+            <div style="display: flex; align-items: center;">
+                <a href="/"><h1>🎮 CyberStore</h1></a>
+                <div class="dropdown">
+                    <button class="dropbtn">📂 Danh sách thể loại ▼</button>
+                    <div class="dropdown-content">
+                        <a href="/">💠 Tất cả game</a>
+                        <% if (typeof categories !== 'undefined') { %>
+                            <% categories.forEach(cat => { %>
+                                <a href="/?category=<%= cat %>">🎮 <%= cat %></a>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <form action="/" method="GET" class="search-box">
+                <input type="text" name="search" placeholder="Tìm game..." value="<%= searchQuery %>">
+                <button type="submit">🔍</button>
+            </form>
+
+>>>>>>> Stashed changes
             <div class="nav-group">
                 <% if (!currentUser) { %>
                     <a href="/login" class="btn btn-login">Đăng nhập</a>
                 <% } else { %>
                     <% if (currentUser.role === 'admin') { %>
                         <span style="color: #bb86fc; font-weight: bold;">🛡️ BOSS</span>
+<<<<<<< Updated upstream
                         
                         <a href="/admin/users" class="btn btn-admin" title="Quản lý người dùng">👥 Users</a>
                         <a href="/admin/orders" class="btn btn-admin" title="Quản lý đơn hàng">📦 Đơn</a>
@@ -48,23 +72,38 @@
                         <span style="color: white;">Hi, <%= currentUser.username %></span>
                     <% } %>
                     
+=======
+                        <a href="/admin/users" class="btn btn-admin" title="User">👥</a>
+                        <a href="/admin/orders" class="btn btn-admin" title="Đơn">📦</a>
+                        <a href="/admin/add-game" class="btn btn-admin" title="Thêm">+</a>
+                    <% } else { %>
+                        <span style="color: white;">Hi, <%= currentUser.username %></span>
+                    <% } %>
+>>>>>>> Stashed changes
                     <form action="/logout" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-delete">Thoát</button>
                     </form>
                 <% } %>
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
                 <% let totalQty = 0; if (cart) cart.forEach(i => totalQty += i.quantity); %>
                 <a href="/cart" class="btn btn-cart">🛒 (<%= totalQty %>)</a>
             </div>
         </div>
     </header>
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     <div class="container main-layout">
         
         <% if (currentPage == 1 && !searchQuery && !currentCategory) { %>
         <div class="slider-container" style="margin-top: 0; margin-bottom: 30px;">
             <div class="slider-wrapper" id="slider">
+<<<<<<< Updated upstream
                 <div class="slide">
                     <img src="https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png">
                     <div class="slide-content"><h2>God of War Ragnarök</h2></div>
@@ -77,27 +116,41 @@
                     <img src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/k419k41k9r19/9560565730240d3653b8755850444800c23477e0.jpg">
                     <div class="slide-content"><h2>GTA V</h2></div>
                 </div>
+=======
+                <div class="slide"><img src="https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png"><div class="slide-content"><h2>God of War Ragnarök</h2></div></div>
+                <div class="slide"><img src="https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phvVT0qZfcRms5qDAk0SI3CM.png"><div class="slide-content"><h2>Elden Ring</h2></div></div>
+                <div class="slide"><img src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/k419k41k9r19/9560565730240d3653b8755850444800c23477e0.jpg"><div class="slide-content"><h2>GTA V</h2></div></div>
+>>>>>>> Stashed changes
             </div>
         </div>
         <% } %>
 
         <% if (currentCategory) { %>
+<<<<<<< Updated upstream
             <h2 style="color: var(--accent-color); border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
                 📂 Đang xem thể loại: <%= currentCategory %>
             </h2>
+=======
+            <h2 style="color: var(--accent-color); border-bottom: 1px solid #333; padding-bottom: 10px;">📂 Đang xem: <%= currentCategory %></h2>
+>>>>>>> Stashed changes
         <% } %>
 
         <div class="game-grid">
             <% if (games.length === 0) { %>
+<<<<<<< Updated upstream
                 <div style="text-align: center; width: 100%; padding: 50px; background: #1e1e1e; border-radius: 10px;">
                     <h3>😢 Không tìm thấy game nào</h3>
                     <p>Thử chọn danh mục khác hoặc tìm kiếm lại nhé.</p>
                     <a href="/" class="btn btn-buy" style="width: auto;">Xem tất cả</a>
                 </div>
+=======
+                <div style="text-align: center; width: 100%; padding: 50px; background: #1e1e1e;"><h3>😢 Không tìm thấy game</h3></div>
+>>>>>>> Stashed changes
             <% } else { %>
                 <% games.forEach(game => { %>
                     <div class="card">
                         <a href="/game/<%= game._id %>"><img src="<%= game.imageUrl %>"></a>
+<<<<<<< Updated upstream
                         
                         <div class="card-body">
                             <div class="card-title"><%= game.title %></div>
@@ -108,12 +161,24 @@
                             
                             <a href="/checkout/quick/<%= game._id %>" class="btn btn-buy">Mua Ngay</a>
                             
+=======
+                        <div class="card-body">
+                            <div class="card-title"><%= game.title %></div>
+                            
+                            <div class="card-price">$<%= game.price %></div>
+                            
+                            <a href="/checkout/quick/<%= game._id %>" class="btn btn-buy">Mua Ngay</a>
+>>>>>>> Stashed changes
                             <a href="/game/<%= game._id %>" class="btn btn-detail">Chi tiết</a>
 
                             <% if (currentUser && currentUser.role === 'admin') { %>
                                 <div class="admin-controls">
                                     <a href="/admin/edit/<%= game._id %>" class="btn btn-edit">Sửa</a>
+<<<<<<< Updated upstream
                                     <form action="/admin/delete/<%= game._id %>" method="POST" onsubmit="return confirm('Xóa game này?');" style="width: 48%;">
+=======
+                                    <form action="/admin/delete/<%= game._id %>" method="POST" onsubmit="return confirm('Xóa?');" style="width: 48%;">
+>>>>>>> Stashed changes
                                         <button type="submit" class="btn btn-delete" style="width: 100%;">Xóa</button>
                                     </form>
                                 </div>
@@ -127,6 +192,7 @@
         <% if (totalPages > 1) { %>
             <div class="pagination">
                 <% for(let i = 1; i <= totalPages; i++) { %>
+<<<<<<< Updated upstream
                     <a href="/?page=<%= i %>&category=<%= currentCategory %>&search=<%= searchQuery %>" 
                        class="<%= currentPage == i ? 'active' : '' %>"><%= i %></a>
                 <% } %>
@@ -167,10 +233,17 @@
             &copy; 2024 CyberStore. All rights reserved. Designed by You.
         </div>
     </footer>
+=======
+                    <a href="/?page=<%= i %>&category=<%= currentCategory %>&search=<%= searchQuery %>" class="<%= currentPage == i ? 'active' : '' %>"><%= i %></a>
+                <% } %>
+            </div>
+        <% } %>
+>>>>>>> Stashed changes
     </div>
 
     <script>
         const slider = document.getElementById('slider');
+<<<<<<< Updated upstream
         if (slider) {
             let index = 0;
             setInterval(() => {
@@ -179,6 +252,9 @@
                 slider.style.transform = `translateX(-${index * 100}%)`;
             }, 3000); // Chuyển ảnh mỗi 3 giây
         }
+=======
+        if (slider) { let idx = 0; setInterval(() => { idx++; if(idx>2) idx=0; slider.style.transform=`translateX(-${idx*100}%)`; }, 3000); }
+>>>>>>> Stashed changes
     </script>
 </body>
 </html>
