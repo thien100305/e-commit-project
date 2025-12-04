@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ Hàng Của Bạn</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        .total { font-size: 1.5em; font-weight: bold; margin-top: 20px; text-align: right; color: #d9534f; }
+        .btn-remove { background: red; color: white; text-decoration: none; padding: 5px 10px; border-radius: 4px; }
+        .btn-checkout { display: block; width: 100%; background: #28a745; color: white; text-align: center; padding: 15px; text-decoration: none; font-size: 1.2em; margin-top: 20px; border-radius: 5px; }
+        img { height: 50px; }
+    </style>
+</head>
+<body>
+    <h1>🛒 Giỏ Hàng</h1>
+    <a href="/">← Tiếp tục mua sắm</a>
+
+    <% if (cart.length === 0) { %>
+        <p style="text-align: center; margin-top: 50px;">Giỏ hàng trống trơn!</p>
+    <% } else { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên Game</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cart.forEach(item => { %>
+                    <tr>
+                        <td><img src="<%= item.imageUrl %>"></td>
+                        <td><%= item.title %></td>
+                        <td>$<%= item.price %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= item.price * item.quantity %></td>
+                        <td>
+                            <a href="/cart/remove/<%= item.gameId %>" class="btn-remove">Xóa</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <div class="total">
+            Tổng cộng: $<%= totalPrice %>
+        </div>
+
+        <a href="/cart/checkout" class="btn-checkout">Tiến Hành Thanh Toán</a>
+    <% } %>
+</body>
+</html>
