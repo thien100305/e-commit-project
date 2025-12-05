@@ -110,3 +110,4 @@ exports.postEditGame = async (req, res) => {
 exports.deleteGame = async (req, res) => {
     try { await Game.findByIdAndDelete(req.params.id); res.redirect('/'); } catch (e) { res.send('Lỗi xóa'); }
 };
+
