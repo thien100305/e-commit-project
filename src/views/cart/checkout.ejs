@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh Toán</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .summary { background: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .btn-submit { width: 100%; background: #28a745; color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .btn-submit:hover { background: #218838; }
+        .back-link { display: block; margin-top: 15px; text-align: center; text-decoration: none; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📝 Thông tin nhận hàng</h2>
+        
+        <div class="summary">
+            <strong>Tổng tiền cần thanh toán:</strong> <span style="color: red; font-size: 1.2em;">$<%= totalPrice %></span>
+        </div>
+
+        <form action="/cart/checkout" method="POST">
+            
+            <% if (quickBuyId) { %>
+                <input type="hidden" name="quickBuyId" value="<%= quickBuyId %>">
+            <% } %>
+
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" name="customerName" required placeholder="Nguyễn Văn A">
+            </div>
+            
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" name="phone" required placeholder="0912...">
+            </div>
+
+            <div class="form-group">
+                <label>Địa chỉ nhận hàng</label>
+                <input type="text" name="address" required placeholder="Số 1, Đường...">
+            </div>
+
+            <button type="submit" class="btn-submit">XÁC NHẬN ĐẶT HÀNG</button>
+        </form>
+        
+        <a href="/cart" class="back-link">← Quay lại giỏ hàng</a>
+    </div>
+</body>
+</html>
