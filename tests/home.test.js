@@ -1,34 +1,50 @@
 const request = require('supertest');
-const mongoose = require('mongoose'); // Import Mongoose
-require('dotenv').config(); // Import biến môi trường để lấy link DB
-const app = require('../src/app');
+const mongoose = require('mongoose');
+require('dotenv').config(); // Load biến môi trường
 
-// Tăng thời gian chờ lên 20 giây (vì kết nối DB Online hơi lâu)
-jest.setTimeout(20000);
+// Import app (đảm bảo đường dẫn đúng)
+const app = require('../src/app'); 
 
-// TRƯỚC khi chạy test: Kết nối Database
+// Tăng thời gian timeout cho test (đề phòng mạng lag)
+jest.setTimeout(30000);
+
+// 1. Chạy trước tất cả các bài test: Kết nối Database
 beforeAll(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    // Nếu chưa kết nối thì mới kết nối
+    if (mongoose.connection.readyState === 0) {
+        const url = process.env.MONGODB_URI;
+        if (!url) {
+            console.error("❌ LỖI: Không tìm thấy MONGODB_URI trong .env hoặc GitHub Secrets");
+        } else {
+            await mongoose.connect(url);
+        }
+    }
 });
 
-// SAU khi chạy xong: Ngắt kết nối để Jest dừng hẳn
+// 2. Chạy sau tất cả: Ngắt kết nối để Jest không bị treo
 afterAll(async () => {
-    await mongoose.connection.close();
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.disconnect();
+    }
 });
 
 describe('Kiểm tra Trang Chủ', () => {
     
-    // Bài test 1: Vào trang chủ
-    it('Phải load được trang chủ (Status 200)', async () => {
+    test('Phải load được trang chủ (Status 200)', async () => {
         const res = await request(app).get('/');
-        // Nếu DB chưa kết nối, dòng này sẽ bị timeout
+        
+        // Nếu server trả về 500, in lỗi ra để xem
+        if (res.statusCode === 500) {
+            console.error("🔥🔥 CHI TIẾT LỖI 500:", res.text || "Lỗi nội bộ server");
+        }
+
         expect(res.statusCode).toEqual(200);
+        // Kiểm tra xem trong HTML có chữ CyberStore không (để chắc chắn load đúng view)
+        expect(res.text).toContain('CyberStore'); 
     });
 
-    // Bài test 2: Vào trang Login
-    it('Phải load được trang Login (Status 200)', async () => {
+    test('Phải load được trang Login (Status 200)', async () => {
         const res = await request(app).get('/login');
         expect(res.statusCode).toEqual(200);
     });
-    
 });
