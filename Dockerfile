@@ -1,20 +1,20 @@
-# 1. Chọn môi trường Node.js (phiên bản ổn định)
+# Sử dụng Node 18 Alpine
 FROM node:18-alpine
 
-# 2. Tạo thư mục làm việc bên trong Container
+# Tạo workspace
 WORKDIR /usr/src/app
 
-# 3. Copy file package.json và package-lock.json vào trước
+# Copy file package trước để cache npm install
 COPY package*.json ./
 
-# 4. Cài đặt các thư viện (npm install) bên trong Container
+# Cài dependency
 RUN npm install
 
-# 5. Copy toàn bộ code nguồn của bạn vào Container
+# Copy toàn bộ source code
 COPY . .
 
-# 6. Mở cổng 3000 (Cổng mà server.js của bạn đang dùng)
+# Mở port app chạy (giả sử đang chạy port 3000)
 EXPOSE 3000
 
-# 7. Lệnh chạy ứng dụng khi Container khởi động
-CMD ["node", "server.js"]
+# Lệnh start app
+CMD ["npm", "start"]

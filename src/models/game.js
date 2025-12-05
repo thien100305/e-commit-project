@@ -1,4 +1,3 @@
-// src/models/Game.js
 const mongoose = require('mongoose');
 
 // Schema con cho phần Đánh giá
@@ -18,4 +17,6 @@ const gameSchema = new mongoose.Schema({
     reviews: [reviewSchema] 
 });
 
-module.exports = mongoose.model('Game', gameSchema);
+const Game = mongoose.models.Game || mongoose.model('Game', gameSchema);
+
+module.exports = Game;

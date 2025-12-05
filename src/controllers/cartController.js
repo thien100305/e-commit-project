@@ -1,6 +1,6 @@
 // src/controllers/cartController.js
 const mongoose = require('mongoose'); // <-- Thêm thư viện này để kiểm tra ID
-const Game = require('../models/game');
+const Game = require('../models/Game');
 const Order = require('../models/order');
 
 // 1. Thêm vào giỏ (ĐÃ FIX LỖI CAST ERROR)
