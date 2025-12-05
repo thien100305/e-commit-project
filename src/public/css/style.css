@@ -128,7 +128,7 @@ header h1 {
 /* BUTTONS */
 /* ========================================= */
 .btn { 
-    padding: 8px 16px; 
+    padding:6px 16px; 
     border-radius: 6px; 
     font-weight: bold; 
     font-size: 0.9rem; 
@@ -148,15 +148,15 @@ header h1 {
 .btn-buy { 
     background: var(--buy-btn); 
     color: black; 
-    width: 100%; 
+    width: 85%; 
     margin-top: auto; /* Đẩy nút xuống đáy */
-    margin-bottom: 8px; 
+    margin-bottom: 6px; 
 }
-.btn-detail { background: #444; color: white; width: 100%; }
+.btn-detail { background: #444; color: white; width: 85%; }
 
 /* Nút Admin */
-.btn-edit { background: #9c27b0; color: white; width: 48%; }
-.btn-delete { background: var(--danger-btn); color: white; width: 48%; }
+.btn-edit { background: #9c27b0; color: white; width: 50%; }
+.btn-delete { background: var(--danger-btn); color: white; width: 50%; }
 
 
 /* ========================================= */

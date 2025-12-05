@@ -1,5 +1,5 @@
 // src/controllers/gameController.js
-const Game = require('../models/game'); // (Lưu ý: Nếu file model bạn tên Game.js viết hoa thì sửa thành ../models/Game)
+const Game = require('../models/Game'); // (Lưu ý: Nếu file model bạn tên Game.js viết hoa thì sửa thành ../models/Game)
 
 // --- KHÁCH HÀNG ---
 
