@@ -10,6 +10,7 @@
 
     <header>
         <div class="header-inner">
+            
             <div style="display: flex; align-items: center;">
                 <a href="/"><h1>🎮 CyberStore</h1></a>
 
@@ -17,6 +18,7 @@
                     <button class="dropbtn">📂 Danh sách thể loại ▼</button>
                     <div class="dropdown-content">
                         <a href="/">💠 Tất cả game</a>
+                        
                         <% if (typeof categories !== 'undefined') { %>
                             <% categories.forEach(cat => { %>
                                 <a href="/?category=<%= cat %>">🎮 <%= cat %></a>
@@ -27,8 +29,7 @@
             </div>
 
             <form action="/" method="GET" class="search-box">
-                <!-- Thêm fallback || '' để tránh lỗi undefined khi chạy test -->
-                <input type="text" name="search" placeholder="Tìm game..." value="<%= (typeof searchQuery !== 'undefined') ? searchQuery : '' %>">
+                <input type="text" name="search" placeholder="Tìm game..." value="<%= searchQuery %>">
                 <button type="submit">🔍</button>
             </form>
 
@@ -38,9 +39,11 @@
                 <% } else { %>
                     <% if (currentUser.role === 'admin') { %>
                         <span style="color: #bb86fc; font-weight: bold;">🛡️ BOSS</span>
+                        
                         <a href="/admin/users" class="btn btn-admin" title="Quản lý người dùng">👥 Users</a>
                         <a href="/admin/orders" class="btn btn-admin" title="Quản lý đơn hàng">📦 Đơn</a>
                         <a href="/admin/add-game" class="btn btn-admin" title="Thêm game mới">+ Thêm</a>
+                    
                     <% } else { %>
                         <span style="color: white;">Hi, <%= currentUser.username %></span>
                     <% } %>
@@ -49,18 +52,17 @@
                         <button type="submit" class="btn btn-delete">Thoát</button>
                     </form>
                 <% } %>
-
-                <!-- Kiểm tra kỹ biến cart để tránh crash -->
-                <% let totalQty = 0; if (typeof cart !== 'undefined' && cart) cart.forEach(i => totalQty += i.quantity); %>
+                
+                <% let totalQty = 0; if (cart) cart.forEach(i => totalQty += i.quantity); %>
                 <a href="/cart" class="btn btn-cart">🛒 (<%= totalQty %>)</a>
             </div>
         </div>
     </header>
 
+
     <div class="container main-layout">
         
-        <!-- Slider chỉ hiện ở trang chủ, không search, không lọc category -->
-        <% if (currentPage == 1 && (!typeof searchQuery !== 'undefined' || !searchQuery) && (!typeof currentCategory !== 'undefined' || !currentCategory)) { %>
+        <% if (currentPage == 1 && !searchQuery && !currentCategory) { %>
         <div class="slider-container" style="margin-top: 0; margin-bottom: 30px;">
             <div class="slider-wrapper" id="slider">
                 <div class="slide">
@@ -79,20 +81,20 @@
         </div>
         <% } %>
 
-        <% if (typeof currentCategory !== 'undefined' && currentCategory) { %>
+        <% if (currentCategory) { %>
             <h2 style="color: var(--accent-color); border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
                 📂 Đang xem thể loại: <%= currentCategory %>
             </h2>
         <% } %>
 
         <div class="game-grid">
-            <% if (typeof games !== 'undefined' && games.length === 0) { %>
+            <% if (games.length === 0) { %>
                 <div style="text-align: center; width: 100%; padding: 50px; background: #1e1e1e; border-radius: 10px;">
                     <h3>😢 Không tìm thấy game nào</h3>
                     <p>Thử chọn danh mục khác hoặc tìm kiếm lại nhé.</p>
                     <a href="/" class="btn btn-buy" style="width: auto;">Xem tất cả</a>
                 </div>
-            <% } else if (typeof games !== 'undefined') { %>
+            <% } else { %>
                 <% games.forEach(game => { %>
                     <div class="card">
                         <a href="/game/<%= game._id %>"><img src="<%= game.imageUrl %>"></a>
@@ -105,9 +107,10 @@
                             <div class="card-price">$<%= game.price %></div>
                             
                             <a href="/checkout/quick/<%= game._id %>" class="btn btn-buy">Mua Ngay</a>
+                            
                             <a href="/game/<%= game._id %>" class="btn btn-detail">Chi tiết</a>
 
-                            <% if (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin') { %>
+                            <% if (currentUser && currentUser.role === 'admin') { %>
                                 <div class="admin-controls">
                                     <a href="/admin/edit/<%= game._id %>" class="btn btn-edit">Sửa</a>
                                     <form action="/admin/delete/<%= game._id %>" method="POST" onsubmit="return confirm('Xóa game này?');" style="width: 48%;">
@@ -121,50 +124,49 @@
             <% } %>
         </div>
         
-        <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+        <% if (totalPages > 1) { %>
             <div class="pagination">
                 <% for(let i = 1; i <= totalPages; i++) { %>
-                    <a href="/?page=<%= i %>&category=<%= (typeof currentCategory !== 'undefined' ? currentCategory : '') %>&search=<%= (typeof searchQuery !== 'undefined' ? searchQuery : '') %>" 
+                    <a href="/?page=<%= i %>&category=<%= currentCategory %>&search=<%= searchQuery %>" 
                        class="<%= currentPage == i ? 'active' : '' %>"><%= i %></a>
                 <% } %>
             </div>
         <% } %>
-        
         <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🎮 CyberStore</h3>
-                    <p>
-                        Nền tảng phân phối game bản quyền hàng đầu. 
-                        Chúng tôi cam kết mang đến những tựa game đỉnh cao với mức giá tốt nhất và dịch vụ hỗ trợ 24/7.
-                    </p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Liên Kết</h3>
-                    <ul>
-                        <li><a href="/">› Trang chủ</a></li>
-                        <li><a href="/cart">› Giỏ hàng của bạn</a></li>
-                        <li><a href="/login">› Đăng nhập / Đăng ký</a></li>
-                        <% if (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin') { %>
-                            <li><a href="/admin/orders" style="color: var(--accent-color);">› Quản trị viên</a></li>
-                        <% } %>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Liên Hệ</h3>
-                    <p>📍 123 Đường Gaming, Quận 1, TP.HCM</p>
-                    <p>📧 hotro@cyberstore.com</p>
-                    <p>📞 1900 100 Có</p>
-                    <p>⏰ Mở cửa: 8:00 - 22:00</p>
-                </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🎮 CyberStore</h3>
+                <p>
+                    Nền tảng phân phối game bản quyền hàng đầu. 
+                    Chúng tôi cam kết mang đến những tựa game đỉnh cao với mức giá tốt nhất và dịch vụ hỗ trợ 24/7.
+                </p>
             </div>
 
-            <div class="copyright">
-                &copy; 2024 CyberStore. All rights reserved. Designed by You.
+            <div class="footer-section">
+                <h3>Liên Kết</h3>
+                <ul>
+                    <li><a href="/">› Trang chủ</a></li>
+                    <li><a href="/cart">› Giỏ hàng của bạn</a></li>
+                    <li><a href="/login">› Đăng nhập / Đăng ký</a></li>
+                    <% if (currentUser && currentUser.role === 'admin') { %>
+                        <li><a href="/admin/orders" style="color: var(--accent-color);">› Quản trị viên</a></li>
+                    <% } %>
+                </ul>
             </div>
-        </footer>
+
+            <div class="footer-section">
+                <h3>Liên Hệ</h3>
+                <p>📍 123 Đường Gaming, Quận 1, TP.HCM</p>
+                <p>📧 hotro@cyberstore.com</p>
+                <p>📞 1900 100 Có</p>
+                <p>⏰ Mở cửa: 8:00 - 22:00</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 CyberStore. All rights reserved. Designed by You.
+        </div>
+    </footer>
     </div>
 
     <script>
