@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 /* src/public/css/style.css */
 
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 :root {
     --bg-color: #121212;
     --card-bg: #1e1e1e;
@@ -9,8 +12,12 @@
 <<<<<<< HEAD
     --buy-btn: #03dac6;      /* Màu xanh Cyan cho nút Mua */
 =======
+<<<<<<< HEAD
+    --buy-btn: #03dac6;      /* Màu xanh Cyan cho nút Mua */
+=======
     --buy-btn: #03dac6;
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     --danger-btn: #cf6679;
     --nav-bg: #2c2c2c;
 }
@@ -26,16 +33,22 @@ body {
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 ul { list-style: none; padding: 0; margin: 0; }
 
 /* ========================================= */
 /* HEADER */
 /* ========================================= */
+<<<<<<< HEAD
+=======
 =======
 ul { list-style: none; padding: 0; }
 
 /* --- HEADER --- */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 header {
     background-color: var(--nav-bg);
     padding: 0;
@@ -56,6 +69,9 @@ header {
 }
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 header h1 { 
     margin: 0; 
     color: var(--accent-color); 
@@ -65,11 +81,14 @@ header h1 {
 }
 
 /* --- DROPDOWN MENU --- */
+<<<<<<< HEAD
+=======
 =======
 header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-size: 1.5rem; margin-right: 20px;}
 
 /* --- DROPDOWN MENU (QUAN TRỌNG) --- */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .dropdown {
     position: relative;
     display: inline-block;
@@ -100,8 +119,12 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 <<<<<<< HEAD
     display: none;
 =======
+<<<<<<< HEAD
+    display: none;
+=======
     display: none; /* Ẩn mặc định */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     position: absolute;
     background-color: var(--card-bg);
     min-width: 220px;
@@ -117,8 +140,11 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 /* Rê chuột vào thì hiện */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .dropdown:hover .dropdown-content { display: block; }
 
 .dropdown-content a {
@@ -145,8 +171,12 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 <<<<<<< HEAD
 /* --- SEARCH & NAV --- */
 =======
+<<<<<<< HEAD
+/* --- SEARCH & NAV --- */
+=======
 /* --- NAV & SEARCH --- */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .nav-group { display: flex; align-items: center; gap: 15px; }
 
 .search-box { display: flex; background: #333; border-radius: 20px; padding: 5px 15px; }
@@ -154,6 +184,9 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 .search-box button { background: transparent; border: none; color: var(--accent-color); cursor: pointer; font-weight: bold; }
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 
 /* ========================================= */
 /* BUTTONS */
@@ -169,16 +202,22 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
     text-align: center; 
     transition: 0.2s;
 }
+<<<<<<< HEAD
+=======
 =======
 /* --- BUTTONS --- */
 .btn { padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; border: none; cursor: pointer; display: inline-block; text-align: center; }
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
 .btn-login { border: 1px solid var(--accent-color); color: var(--accent-color); background: transparent; border-radius: 20px; }
 .btn-admin { background: var(--primary-btn); color: white; }
 .btn-cart { background: #ff9800; color: black; }
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 
 /* Nút Mua & Chi tiết */
 .btn-buy { 
@@ -198,6 +237,8 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 /* ========================================= */
 /* LAYOUT & GAME GRID */
 /* ========================================= */
+<<<<<<< HEAD
+=======
 =======
 .btn-buy { background: var(--buy-btn); color: black; width: 100%; margin-top: auto; margin-bottom: 5px; }
 .btn-detail { background: #444; color: white; width: 100%; }
@@ -206,6 +247,7 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 
 /* --- LAYOUT --- */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 .main-layout { margin-top: 20px; }
 
@@ -218,7 +260,11 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 <<<<<<< HEAD
 /* --- CARD (THẺ GAME) --- */
 =======
+<<<<<<< HEAD
+/* --- CARD (THẺ GAME) --- */
+=======
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .card {
     background-color: var(--card-bg);
     border-radius: 12px;
@@ -227,6 +273,9 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
     display: flex;
     flex-direction: column;
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     height: 100%; /* Đảm bảo thẻ cao đều */
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     border: 1px solid #333;
@@ -286,6 +335,8 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 /* ========================================= */
 /* SLIDER & PAGINATION */
 /* ========================================= */
+<<<<<<< HEAD
+=======
 =======
     height: 100%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -311,6 +362,7 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 
 /* --- SLIDER --- */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .slider-container { max-width: 1100px; margin: 20px auto; border-radius: 15px; overflow: hidden; position: relative; height: 350px; }
 .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
 .slide { min-width: 100%; height: 100%; position: relative; }
@@ -319,6 +371,9 @@ header h1 { margin: 0; color: var(--accent-color); letter-spacing: 1px; font-siz
 .slide-content h2 { margin: 0; color: var(--accent-color); }
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 .pagination { text-align: center; margin-top: 40px; }
 .pagination a { padding: 8px 15px; margin: 0 5px; background: #333; border-radius: 4px; }
 .pagination a.active { background: var(--accent-color); color: black; font-weight: bold; }
@@ -380,6 +435,8 @@ footer {
     color: #ccc;
     padding: 50px 0 20px 0;
     margin-top: 60px;
+<<<<<<< HEAD
+=======
 =======
 /* --- AUTH (LOGIN/REGISTER) --- */
 .auth-body { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
@@ -395,6 +452,7 @@ footer {
     padding: 50px 0 20px 0;
     margin-top: 60px; /* Cách xa nội dung bên trên */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     border-top: 1px solid #333;
 }
 
@@ -404,9 +462,12 @@ footer {
     padding: 0 20px;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
     
     /* Chia cột tự động: Mỗi cột tối thiểu 250px */
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
@@ -417,13 +478,20 @@ footer {
 <<<<<<< HEAD
     font-size: 1.1rem;
 =======
+<<<<<<< HEAD
+    font-size: 1.1rem;
+=======
     font-size: 1.2rem;
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     margin-top: 0;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
     border-left: 3px solid var(--accent-color);
     padding-left: 10px;
 }
@@ -449,6 +517,8 @@ footer {
     .search-box input { width: 150px; }
     .detail-container { flex-direction: column; }
     .detail-img { max-width: 100%; }
+<<<<<<< HEAD
+=======
 =======
     border-left: 3px solid var(--accent-color); /* Đường kẻ tím bên trái */
     padding-left: 10px;
@@ -482,4 +552,5 @@ footer {
     font-size: 0.85rem;
     color: #666;
 >>>>>>> 18f8c03a00a317e0696ae7d0f3560e8329bd7a88
+>>>>>>> f806fb394bf33db1f648589f93fd149b25895be6
 }
