@@ -27,14 +27,15 @@
             <div class="detail-info">
                 <h1 style="font-size: 2.5rem; margin-top: 0; margin-bottom: 10px;"><%= game.title %></h1>
                 
-                <p style="color: var(--accent-color); font-weight: bold; margin-top: 0; font-size: 1.1rem; border: 1px solid var(--accent-color); display: inline-block; padding: 5px 15px; border-radius: 20px;">
-                    📂 Thể loại: <%= game.category %>
-                </p>
+                <div class="game-category-tag">
+                    <span>📁 Thể loại:</span>
+                    <span><%= game.category || "Chưa cập nhật" %></span> 
+                </div>
                 <div class="detail-price">$<%= game.price %></div>
                 <p class="detail-desc"><%= game.description %></p>
 
                 <div style="display: flex; gap: 15px;">
-                    <a href="/cart/add/<%= game._id %>" class="btn btn-detail" style="padding: 15px 30px; font-size: 1.1rem;">THÊM VÀO GIỎ</a>
+                    <a href="/cart/add/<%= game._id %>" class="btn btn-detail" style="padding: 15px 30px; font-size: 0.9rem;">THÊM VÀO GIỎ</a>
                     <a href="/checkout/quick/<%= game._id %>" class="btn btn-buy" style="margin-top:0; padding: 15px 30px; font-size: 1.1rem;">MUA NGAY</a>
                 </div>
             </div>
