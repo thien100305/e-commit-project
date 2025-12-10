@@ -2,18 +2,168 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đặt hàng thành công!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao Dịch Thành Công</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #28a745; }
-        .btn-home { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        :root {
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --text-color: #a0a0a0;
+            --neon-green: #39ff14;     /* Xanh lá Neon (Success) */
+            --neon-blue: #00f0ff;      /* Xanh dương Neon */
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--bg-color);
+            /* Lưới nền Grid */
+            background-image: 
+                linear-gradient(rgba(57, 255, 20, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 30px;
+            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.1); /* Glow xanh lá nhẹ */
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Khung viền góc tech */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border-top: 3px solid var(--neon-green);
+            border-left: 3px solid var(--neon-green);
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 40px; height: 40px;
+            border-bottom: 3px solid var(--neon-green);
+            border-right: 3px solid var(--neon-green);
+        }
+
+        /* Icon thành công */
+        .success-icon {
+            font-size: 5em;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--neon-green);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            font-size: 1.8em;
+        }
+
+        .sub-title {
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .system-msg {
+            background: #1a1a1a;
+            padding: 15px;
+            border-left: 2px solid var(--neon-blue);
+            color: #888;
+            font-size: 0.9em;
+            margin: 30px 0;
+            font-family: monospace;
+        }
+
+        /* Nút quay về */
+        .btn-home {
+            display: inline-block;
+            background: transparent;
+            color: var(--neon-blue);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--neon-blue);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-home:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        /* Keyframes Animation */
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 <body>
-    <h1>🎉 Đặt hàng thành công!</h1>
-    <p>Cảm ơn bạn đã mua game tại cửa hàng của chúng tôi.</p>
-    <p>Chúng tôi sẽ sớm liên hệ để giao hàng.</p>
-    
-    <a href="/" class="btn-home">Tiếp tục mua sắm</a>
+
+    <div class="container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>Đặt hàng thành công!</h1>
+        <div class="sub-title">// Nhiệm vụ hoàn thành</div>
+
+        <p>Cảm ơn bạn đã tin tưởng SyberStore.</p>
+        
+        <div class="system-msg">
+            > System: Đang xử lý đơn hàng...<br>
+            > Status: Chúng tôi sẽ liên hệ sớm để giao account.
+        </div>
+        
+        <a href="/" class="btn-home">
+            <i class="fas fa-undo"></i> Mua thêm Nick khác
+        </a>
+    </div>
+
 </body>
 </html>

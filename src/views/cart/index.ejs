@@ -2,57 +2,324 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Giỏ Hàng Của Bạn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - Game Store</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        th { background-color: #f4f4f4; }
-        .total { font-size: 1.5em; font-weight: bold; margin-top: 20px; text-align: right; color: #d9534f; }
-        .btn-remove { background: red; color: white; text-decoration: none; padding: 5px 10px; border-radius: 4px; }
-        .btn-checkout { display: block; width: 100%; background: #28a745; color: white; text-align: center; padding: 15px; text-decoration: none; font-size: 1.2em; margin-top: 20px; border-radius: 5px; }
-        img { height: 50px; }
+        :root {
+            --bg-color: #050505;       /* Đen tuyệt đối */
+            --card-bg: #111111;        /* Đen nhám */
+            --text-color: #a0a0a0;     /* Xám lì */
+            
+            /* Màu chủ đạo: Vàng Cyberpunk + Tím Neon */
+            --neon-primary: #fcee0a;   /* Vàng Cyberpunk */
+            --neon-secondary: #00f0ff; /* Xanh Cyan */
+            --accent-red: #ff003c;     /* Đỏ Glitch */
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif; /* Font sắc sảo cho nội dung */
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px; /* Hiệu ứng lưới Grid nền */
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 950px;
+            width: 100%;
+            padding: 30px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Trang trí góc khung để nhìn giống máy móc */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100px; height: 100px;
+            border-top: 2px solid var(--neon-primary);
+            border-left: 2px solid var(--neon-primary);
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 100px; height: 100px;
+            border-bottom: 2px solid var(--neon-primary);
+            border-right: 2px solid var(--neon-primary);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif; /* Font chủ đạo */
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 2.5em;
+            
+            /* Hiệu ứng chữ Gradient cực ngầu */
+            background: linear-gradient(90deg, var(--neon-primary), var(--white), var(--neon-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(252, 238, 10, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9em;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-link:hover {
+            color: var(--neon-secondary);
+        }
+
+        /* Style cho bảng */
+        .cart-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Tách các dòng ra */
+            margin-top: 10px;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding: 15px;
+            color: var(--neon-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-table tr {
+            background: #1a1a1a;
+            transition: transform 0.2s;
+        }
+        
+        .cart-table tr:hover {
+            transform: scale(1.01); /* Hiệu ứng nổi lên khi di chuột */
+            background: #222;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+
+        .cart-table td {
+            padding: 15px;
+            vertical-align: middle;
+            color: var(--white);
+            border: none;
+        }
+        
+        /* Đường kẻ bên trái mỗi dòng sản phẩm */
+        .cart-table tr td:first-child {
+            border-left: 3px solid var(--neon-secondary); 
+        }
+
+        .cart-item-img {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            filter: grayscale(40%); /* Làm ảnh hơi tối màu cho ngầu */
+            transition: filter 0.3s;
+        }
+        
+        .cart-table tr:hover .cart-item-img {
+            filter: grayscale(0%); /* Sáng lại khi hover */
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+
+        .item-price, .item-total {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-primary);
+            letter-spacing: 1px;
+        }
+
+        /* Nút xóa */
+        .btn-remove {
+            color: #444;
+            font-size: 1.2em;
+            transition: 0.3s;
+        }
+
+        .btn-remove:hover {
+            color: var(--accent-red);
+            text-shadow: 0 0 10px var(--accent-red);
+            cursor: pointer;
+        }
+
+        /* Phần tổng tiền */
+        .cart-summary {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .total-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+        
+        .total-price span {
+            color: var(--neon-primary);
+        }
+        
+        .total-label {
+            font-size: 0.4em;
+            color: #777;
+            vertical-align: middle;
+            margin-right: 15px;
+            font-family: 'Exo 2', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Nút thanh toán GLITCH */
+        .btn-checkout {
+            display: inline-block;
+            background: var(--neon-primary);
+            color: #000;
+            padding: 15px 50px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%); /* Cắt góc nút */
+            transition: all 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background: var(--white);
+            box-shadow: 0 0 20px var(--white);
+            transform: translate(-2px, -2px);
+        }
+
+        /* Trạng thái trống */
+        .empty-cart {
+            text-align: center;
+            padding: 50px 0;
+            opacity: 0.5;
+        }
+        .empty-cart i {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container::before, .container::after { display: none; }
+            .cart-table th { display: none; }
+            .cart-table td { display: block; text-align: right; }
+            .cart-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                color: var(--neon-secondary);
+                text-transform: uppercase;
+                font-size: 0.8em;
+                font-family: 'Orbitron', sans-serif;
+            }
+            .cart-table tr { 
+                display: block; 
+                margin-bottom: 20px; 
+                border: 1px solid #333; 
+                padding: 10px;
+            }
+            .cart-table tr td:first-child { border-left: none; text-align: center; }
+            .cart-item-img { width: 100%; height: auto; }
+        }
     </style>
 </head>
 <body>
-    <h1>🛒 Giỏ Hàng</h1>
-    <a href="/">← Tiếp tục mua sắm</a>
 
-    <% if (cart.length === 0) { %>
-        <p style="text-align: center; margin-top: 50px;">Giỏ hàng trống trơn!</p>
-    <% } else { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Ảnh</th>
-                    <th>Tên Game</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Thành tiền</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% cart.forEach(item => { %>
+    <div class="container">
+        <a href="/" class="back-link"><i class="fas fa-caret-left"></i> Tiếp tục mua sắm</a>
+        
+        <h1>GIỎ HÀNG <span style="font-size: 0.5em; color: #555;">// v2.0</span></h1>
+
+        <% if (cart.length === 0) { %>
+            <div class="empty-cart">
+                <i class="fas fa-microchip"></i>
+                <p>Giỏ hàng trống</p>
+                <a href="/" class="btn-checkout" style="background: #333; color: #fff;">
+                    Quay lại cửa hàng
+                </a>
+            </div>
+        <% } else { %>
+            <table class="cart-table">
+                <thead>
                     <tr>
-                        <td><img src="<%= item.imageUrl %>"></td>
-                        <td><%= item.title %></td>
-                        <td>$<%= item.price %></td>
-                        <td><%= item.quantity %></td>
-                        <td>$<%= item.price * item.quantity %></td>
-                        <td>
-                            <a href="/cart/remove/<%= item.gameId %>" class="btn-remove">Xóa</a>
-                        </td>
+                        <th style="width: 15%">Mục</th>
+                        <th style="width: 35%">Tên</th>
+                        <th style="width: 15%">Giá</th>
+                        <th style="width: 15%">Số lượng</th>
+                        <th style="width: 15%">Tổng</th>
+                        <th style="width: 5%"></th>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% cart.forEach(item => { %>
+                        <tr>
+                            <td data-label="Item">
+                                <img src="<%= item.imageUrl %>" alt="<%= item.title %>" class="cart-item-img">
+                            </td>
+                            <td data-label="Account" class="item-name"><%= item.title %></td>
+                            <td data-label="Price" class="item-price">$<%= item.price %></td>
+                            <td data-label="Qty" style="font-family: 'Orbitron', sans-serif; color: #777;">0<%= item.quantity %></td>
+                            <td data-label="Total" class="item-total">$<%= item.price * item.quantity %></td>
+                            <td data-label="Del">
+                                <a href="/cart/remove/<%= item.gameId %>" class="btn-remove">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
 
-        <div class="total">
-            Tổng cộng: $<%= totalPrice %>
-        </div>
+            <div class="cart-summary">
+                <div class="total-price">
+                    <span class="total-label">Tổng thanh toán:</span> <span>$<%= totalPrice %></span>
+                </div>
+                <a href="/cart/checkout" class="btn-checkout">
+                    Xác nhận mua: <i class="fas fa-angle-double-right"></i>
+                </a>
+            </div>
+        <% } %>
+    </div>
 
-        <a href="/cart/checkout" class="btn-checkout">Tiến Hành Thanh Toán</a>
-    <% } %>
 </body>
 </html>
