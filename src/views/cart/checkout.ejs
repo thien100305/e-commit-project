@@ -2,26 +2,186 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Thanh Toán</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - Game Store</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; }
-        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .summary { background: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .btn-submit { width: 100%; background: #28a745; color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        .btn-submit:hover { background: #218838; }
-        .back-link { display: block; margin-top: 15px; text-align: center; text-decoration: none; color: #666; }
+        :root {
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --text-color: #a0a0a0;
+            --neon-primary: #fcee0a;   /* Vàng Cyberpunk */
+            --neon-secondary: #00f0ff; /* Xanh Cyan */
+            --white: #ffffff;
+            --input-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--bg-color);
+            /* Hiệu ứng lưới Grid nền */
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Trang trí góc khung (Scope) */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px;
+            width: 30px; height: 30px;
+            border-top: 2px solid var(--neon-secondary);
+            border-left: 2px solid var(--neon-secondary);
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; right: -2px;
+            width: 30px; height: 30px;
+            border-bottom: 2px solid var(--neon-secondary);
+            border-right: 2px solid var(--neon-secondary);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 20px;
+        }
+        
+        h2 i { color: var(--neon-primary); margin-right: 10px; }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--neon-secondary);
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--input-bg);
+            border: 1px solid #333;
+            color: var(--white);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input::placeholder { color: #555; font-style: italic; }
+
+        /* Hiệu ứng khi bấm vào ô nhập liệu */
+        input:focus {
+            border-color: var(--neon-secondary);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            background: #222;
+        }
+
+        .summary {
+            background: rgba(0, 240, 255, 0.05);
+            padding: 20px;
+            border-left: 4px solid var(--neon-primary);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary strong {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .total-amount {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-primary);
+            font-size: 1.5em;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(252, 238, 10, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--neon-primary);
+            color: #000;
+            padding: 15px;
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            clip-path: polygon(5% 0, 100% 0, 100% 80%, 95% 100%, 0 100%, 0 20%);
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--white);
+            box-shadow: 0 0 20px var(--white);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: #666;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .back-link:hover { color: var(--neon-secondary); }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>📝 Thông tin nhận hàng</h2>
+        <h2><i class="fas fa-id-card"></i> THÔNG TIN ĐẶT HÀNG</h2>
         
         <div class="summary">
-            <strong>Tổng tiền cần thanh toán:</strong> <span style="color: red; font-size: 1.2em;">$<%= totalPrice %></span>
+            <strong>Tổng thanh toán:</strong> 
+            <span class="total-amount">$<%= totalPrice %></span>
         </div>
 
         <form action="/cart/checkout" method="POST">
@@ -31,24 +191,24 @@
             <% } %>
 
             <div class="form-group">
-                <label>Họ và tên</label>
-                <input type="text" name="customerName" required placeholder="Nguyễn Văn A">
+                <label>Họ tên</label>
+                <input type="text" name="customerName" required placeholder="Nhập tên thật để xác minh...">
             </div>
             
             <div class="form-group">
-                <label>Số điện thoại</label>
-                <input type="text" name="phone" required placeholder="0912...">
+                <label>SĐT</label>
+                <input type="text" name="phone" required placeholder="09xxxxxxxx...">
             </div>
 
             <div class="form-group">
-                <label>Địa chỉ nhận hàng</label>
-                <input type="text" name="address" required placeholder="Số 1, Đường...">
+                <label>Địa chỉ</label>
+                <input type="text" name="address" required placeholder="Nhập địa chỉ của bạn...">
             </div>
 
-            <button type="submit" class="btn-submit">XÁC NHẬN ĐẶT HÀNG</button>
+            <button type="submit" class="btn-submit">XÁC NHẬN ĐƠN HÀNG</button>
         </form>
         
-        <a href="/cart" class="back-link">← Quay lại giỏ hàng</a>
+        <a href="/cart" class="back-link"><i class="fas fa-caret-left"></i>Hủy và trở lại giỏ hàng</a>
     </div>
 </body>
 </html>
