@@ -1,40 +1,41 @@
-// src/controllers/gameController.js
-const Game = require('../models/Game'); // (Lưu ý: Nếu file model bạn tên Game.js viết hoa thì sửa thành ../models/Game)
+const Game = require('../models/Game');
 
 // --- KHÁCH HÀNG ---
 
 // 1. Lấy danh sách game
-// src/controllers/gameController.js (Chỉ sửa hàm getAllGames, các hàm khác giữ nguyên)
 
 exports.getAllGames = async (req, res) => {
     try {
         const ITEMS_PER_PAGE = 8; 
         const page = parseInt(req.query.page) || 1; 
         
-        // 1. Tạo bộ lọc tìm kiếm
+        // --- PHẦN QUAN TRỌNG NHẤT: BỘ LỌC TÌM KIẾM ---
         let query = {};
-        
-        // Nếu có tìm kiếm theo tên
+
+        // 1. Tìm kiếm theo Tên (name="search" từ ô input)
         if (req.query.search) {
+            // $regex: tìm gần đúng
+            // $options: 'i' -> không phân biệt hoa thường (tìm 'gta' vẫn ra 'GTA')
             query.title = { $regex: req.query.search, $options: 'i' };
         }
         
-        // Nếu có lọc theo thể loại (category)
+        // 2. Lọc theo Thể loại (name="category" từ menu dropdown)
         if (req.query.category) {
-            query.category = req.query.category;
+            query.category = { $regex: req.query.category, $options: 'i' };
         }
+        // ----------------------------------------------
 
-        // 2. Đếm tổng game khớp với bộ lọc
+        // Đếm tổng game để phân trang
         const totalGames = await Game.countDocuments(query);
         const totalPages = Math.ceil(totalGames / ITEMS_PER_PAGE);
         
-        // 3. Lấy danh sách game
+        // Lấy danh sách game
         const games = await Game.find(query)
-            .sort({ _id: -1 })
+            .sort({ _id: -1 }) // Game mới nhất lên đầu
             .skip((page - 1) * ITEMS_PER_PAGE)
             .limit(ITEMS_PER_PAGE);
         
-        // 4. Danh sách các thể loại (Để hiển thị bên Sidebar)
+        // Danh sách cứng thể loại để hiển thị menu
         const categories = [
             "Hành động", "Nhập vai (RPG)", "Thể thao", 
             "Chiến thuật", "Kinh dị", "Phiêu lưu", "Mô phỏng", "MOBA"
@@ -42,15 +43,15 @@ exports.getAllGames = async (req, res) => {
 
         res.render('game/index', { 
             games, 
-            searchQuery: req.query.search || '', 
-            currentCategory: req.query.category || '', // Để biết đang chọn cái nào
-            categories: categories, // Truyền danh sách thể loại xuống View
+            searchQuery: req.query.search || '',     // Giữ lại từ khóa ở ô input
+            currentCategory: req.query.category || '', 
+            categories: categories, 
             currentPage: page, 
             totalPages: totalPages 
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Lỗi Server');
+        res.status(500).send('Lỗi Server: ' + error.message);
     }
 };
 
