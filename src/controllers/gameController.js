@@ -1,25 +1,53 @@
 // src/controllers/gameController.js
-const Game = require('../models/game'); // (Lưu ý: Nếu file model bạn tên Game.js viết hoa thì sửa thành ../models/Game)
+const Game = require('../models/Game'); // (Lưu ý: Nếu file model bạn tên Game.js viết hoa thì sửa thành ../models/Game)
 
 // --- KHÁCH HÀNG ---
 
 // 1. Lấy danh sách game
+// src/controllers/gameController.js (Chỉ sửa hàm getAllGames, các hàm khác giữ nguyên)
+
 exports.getAllGames = async (req, res) => {
     try {
-        const ITEMS_PER_PAGE = 6; 
+        const ITEMS_PER_PAGE = 8; 
         const page = parseInt(req.query.page) || 1; 
+        
+        // 1. Tạo bộ lọc tìm kiếm
         let query = {};
+        
+        // Nếu có tìm kiếm theo tên
         if (req.query.search) {
             query.title = { $regex: req.query.search, $options: 'i' };
         }
+        
+        // Nếu có lọc theo thể loại (category)
+        if (req.query.category) {
+            query.category = req.query.category;
+        }
 
+        // 2. Đếm tổng game khớp với bộ lọc
         const totalGames = await Game.countDocuments(query);
         const totalPages = Math.ceil(totalGames / ITEMS_PER_PAGE);
+        
+        // 3. Lấy danh sách game
         const games = await Game.find(query)
+            .sort({ _id: -1 })
             .skip((page - 1) * ITEMS_PER_PAGE)
             .limit(ITEMS_PER_PAGE);
         
-        res.render('game/index', { games, searchQuery: req.query.search || '', currentPage: page, totalPages: totalPages });
+        // 4. Danh sách các thể loại (Để hiển thị bên Sidebar)
+        const categories = [
+            "Hành động", "Nhập vai (RPG)", "Thể thao", 
+            "Chiến thuật", "Kinh dị", "Phiêu lưu", "Mô phỏng", "MOBA"
+        ];
+
+        res.render('game/index', { 
+            games, 
+            searchQuery: req.query.search || '', 
+            currentCategory: req.query.category || '', // Để biết đang chọn cái nào
+            categories: categories, // Truyền danh sách thể loại xuống View
+            currentPage: page, 
+            totalPages: totalPages 
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Lỗi Server');
@@ -82,3 +110,4 @@ exports.postEditGame = async (req, res) => {
 exports.deleteGame = async (req, res) => {
     try { await Game.findByIdAndDelete(req.params.id); res.redirect('/'); } catch (e) { res.send('Lỗi xóa'); }
 };
+

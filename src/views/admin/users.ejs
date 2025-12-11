@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Người Dùng</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body { padding: 20px; background-color: #f4f4f4; color: #333; }
+        .container-admin { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary-btn); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #333; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .btn-del { background: #cf6679; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
+        .btn-del:hover { background: #b00020; }
+        .back-link { display: inline-block; margin-bottom: 15px; text-decoration: none; color: blue; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container-admin">
+        <a href="/" class="back-link">← Quay lại trang chủ</a>
+        <h1>👥 Danh Sách Tài Khoản (<%= users.length %>)</h1>
+
+        <% if (users.length === 0) { %>
+            <p style="text-align: center;">Chưa có người dùng nào đăng ký.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên đăng nhập</th>
+                        <th>Thông tin liên hệ</th>
+                        <th>Ngày sinh</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td>
+                                <strong><%= user.username %></strong><br>
+                            </td>
+                            <td>
+                                📧 <%= user.email %><br>
+                                📞 <%= user.phone %>
+                            </td>
+                            <td>
+                                <%= new Date(user.birthday).toLocaleDateString('vi-VN') %>
+                            </td>
+                            <td>
+                                <form action="/admin/users/delete/<%= user._id %>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa tài khoản này? Dữ liệu không thể khôi phục!');">
+                                    <button type="submit" class="btn-del">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>

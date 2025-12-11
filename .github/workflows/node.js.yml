@@ -1,0 +1,40 @@
+name: Node.js CI
+
+# Kịch bản này sẽ chạy khi nào? -> Khi có code push lên nhánh main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # Mượn một máy ảo Ubuntu mới nhất
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Test trên Node 18
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    # B1: Cài Node.js
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    # B2: Cài thư viện (npm install)
+    - name: Install dependencies
+      run: npm install
+
+    # B3: Tạo file .env giả (Vì trên git không có file .env)
+    - name: Create .env file
+      run: |
+        echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+        echo "SESSION_SECRET=secret_test" >> .env
+        
+    # B4: Chạy Test
+    - name: Run Tests
+      run: npm test

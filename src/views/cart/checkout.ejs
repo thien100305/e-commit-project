@@ -25,6 +25,11 @@
         </div>
 
         <form action="/cart/checkout" method="POST">
+            
+            <% if (quickBuyId) { %>
+                <input type="hidden" name="quickBuyId" value="<%= quickBuyId %>">
+            <% } %>
+
             <div class="form-group">
                 <label>Họ và tên</label>
                 <input type="text" name="customerName" required placeholder="Nguyễn Văn A">
