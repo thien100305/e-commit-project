@@ -5,24 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh Toán - Game Store</title>
     
+    <!-- Font chữ và icon Cyberpunk -->
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+           /* MÀU CHỦ ĐẠO + BIẾN CSS */
         :root {
             --bg-color: #050505;
             --card-bg: #111111;
             --text-color: #a0a0a0;
-            --neon-primary: #fcee0a;   /* Vàng Cyberpunk */
-            --neon-secondary: #00f0ff; /* Xanh Cyan */
+            --neon-primary: #fcee0a;   /* Màu vàng neon */
+            --neon-secondary: #00f0ff; /* Màu xanh neon */
             --white: #ffffff;
             --input-bg: #1a1a1a;
         }
 
+        /* NỀN TRANG + HIỆU ỨNG LƯỚI */
         body {
             font-family: 'Exo 2', sans-serif;
             background-color: var(--bg-color);
-            /* Hiệu ứng lưới Grid nền */
             background-image: 
                 linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
@@ -36,6 +38,7 @@
             min-height: 100vh;
         }
 
+        /* KHUNG CHỨA FORM */
         .container {
             background-color: var(--card-bg);
             max-width: 600px;
@@ -46,7 +49,7 @@
             position: relative;
         }
 
-        /* Trang trí góc khung (Scope) */
+        /* Trang trí góc Cyberpunk */
         .container::before {
             content: '';
             position: absolute;
@@ -64,6 +67,7 @@
             border-right: 2px solid var(--neon-secondary);
         }
 
+        /* TIÊU ĐỀ */
         h2 {
             font-family: 'Orbitron', sans-serif;
             text-align: center;
@@ -74,9 +78,9 @@
             border-bottom: 1px dashed #333;
             padding-bottom: 20px;
         }
-        
         h2 i { color: var(--neon-primary); margin-right: 10px; }
 
+        /* Ô nhập liệu */
         .form-group { margin-bottom: 20px; }
 
         label {
@@ -105,13 +109,13 @@
 
         input::placeholder { color: #555; font-style: italic; }
 
-        /* Hiệu ứng khi bấm vào ô nhập liệu */
         input:focus {
             border-color: var(--neon-secondary);
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
             background: #222;
         }
 
+        /* KHUNG TỔNG TIỀN */
         .summary {
             background: rgba(0, 240, 255, 0.05);
             padding: 20px;
@@ -125,7 +129,6 @@
         .summary strong {
             font-family: 'Orbitron', sans-serif;
             color: var(--white);
-            text-transform: uppercase;
         }
 
         .total-amount {
@@ -133,9 +136,9 @@
             color: var(--neon-primary);
             font-size: 1.5em;
             font-weight: 900;
-            text-shadow: 0 0 10px rgba(252, 238, 10, 0.3);
         }
 
+        /* NÚT XÁC NHẬN */
         .btn-submit {
             width: 100%;
             background: var(--neon-primary);
@@ -146,7 +149,6 @@
             font-weight: 900;
             font-size: 1.2em;
             text-transform: uppercase;
-            letter-spacing: 2px;
             cursor: pointer;
             clip-path: polygon(5% 0, 100% 0, 100% 80%, 95% 100%, 0 100%, 0 20%);
             transition: all 0.2s;
@@ -159,6 +161,7 @@
             transform: translateY(-2px);
         }
 
+        /* LINK QUAY LẠI */
         .back-link {
             display: block;
             margin-top: 25px;
@@ -166,9 +169,6 @@
             text-decoration: none;
             color: #666;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.8em;
-            transition: color 0.3s;
-            text-transform: uppercase;
         }
 
         .back-link:hover { color: var(--neon-secondary); }
@@ -177,37 +177,49 @@
 </head>
 <body>
     <div class="container">
+
+        <!-- TIÊU ĐỀ THANH TOÁN -->
         <h2><i class="fas fa-id-card"></i> THÔNG TIN ĐẶT HÀNG</h2>
         
+        <!-- HIỂN THỊ TỔNG TIỀN THANH TOÁN -->
         <div class="summary">
             <strong>Tổng thanh toán:</strong> 
-            <span class="total-amount">$<%= totalPrice %></span>
+
+            <!-- Hiển thị totalPrice, tránh lỗi nếu undefined -->
+            <span class="total-amount">$<%= (totalPrice || 0).toLocaleString() %></span>
         </div>
 
+        <!-- FORM GỬI DỮ LIỆU ĐỂ TẠO ĐƠN HÀNG -->
         <form action="/cart/checkout" method="POST">
             
-            <% if (quickBuyId) { %>
+            <!-- Nếu user mua nhanh Quick Buy → gửi kèm ID game -->
+            <% if (typeof quickBuyId !== 'undefined') { %>
                 <input type="hidden" name="quickBuyId" value="<%= quickBuyId %>">
             <% } %>
 
+            <!-- NHẬP HỌ TÊN -->
             <div class="form-group">
                 <label>Họ tên</label>
                 <input type="text" name="customerName" required placeholder="Nhập tên thật để xác minh...">
             </div>
             
+            <!-- NHẬP SĐT -->
             <div class="form-group">
                 <label>SĐT</label>
-                <input type="text" name="phone" required placeholder="09xxxxxxxx...">
+                <input type="text" name="phone" pattern="[0-9]{9,11}" required placeholder="09xxxxxxxx...">
             </div>
 
+            <!-- NHẬP EMAIL (nhưng name vẫn là 'address' để backend không lỗi) -->
             <div class="form-group">
-                <label>Địa chỉ</label>
-                <input type="text" name="address" required placeholder="Nhập địa chỉ của bạn...">
+                <label for="address">Email</label>
+                <input type="email" id="address" name="address" placeholder="Nhập email nhận key game" required>
             </div>
 
+            <!-- NÚT GỬI FORM -->
             <button type="submit" class="btn-submit">XÁC NHẬN ĐƠN HÀNG</button>
         </form>
         
+        <!-- QUAY LẠI GIỎ HÀNG -->
         <a href="/cart" class="back-link"><i class="fas fa-caret-left"></i>Hủy và trở lại giỏ hàng</a>
     </div>
 </body>

@@ -270,7 +270,9 @@
         
         <h1>GIỎ HÀNG <span style="font-size: 0.5em; color: #555;">// v2.0</span></h1>
 
-        <% if (cart.length === 0) { %>
+        <% if (!cart || cart.length === 0) { %> 
+            <!-- Kiểm tra giỏ hàng: nếu không có cart hoặc cart = [] thì hiển thị giao diện giỏ hàng trống -->
+
             <div class="empty-cart">
                 <i class="fas fa-microchip"></i>
                 <p>Giỏ hàng trống</p>
@@ -279,41 +281,70 @@
                 </a>
             </div>
         <% } else { %>
+            <!-- Ngược lại: Nếu có sản phẩm trong giỏ thì hiển thị bảng các item -->
+
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th style="width: 15%">Mục</th>
-                        <th style="width: 35%">Tên</th>
-                        <th style="width: 15%">Giá</th>
-                        <th style="width: 15%">Số lượng</th>
-                        <th style="width: 15%">Tổng</th>
-                        <th style="width: 5%"></th>
+                        <th style="width: 15%">Mục</th>     <!-- Hình ảnh sản phẩm -->
+                        <th style="width: 35%">Tên</th>     <!-- Tên game -->
+                        <th style="width: 15%">Giá</th>     <!-- Giá 1 sản phẩm -->
+                        <th style="width: 15%">Số lượng</th> <!-- Số lượng -->
+                        <th style="width: 15%">Tổng</th>    <!-- Tổng tiền: giá × số lượng -->
+                        <th style="width: 5%"></th>         <!-- Cột xóa -->
                     </tr>
                 </thead>
                 <tbody>
-                    <% cart.forEach(item => { %>
+                    <% cart.forEach(item => { 
+                        const qty = item.quantity || 1;  // Nếu không có quantity thì mặc định = 1
+                        const price = item.price || 0;   // Nếu thiếu giá thì mặc định = 0
+                    %>
+
                         <tr>
                             <td data-label="Item">
+                                <!-- Hiển thị ảnh game -->
                                 <img src="<%= item.imageUrl %>" alt="<%= item.title %>" class="cart-item-img">
                             </td>
-                            <td data-label="Account" class="item-name"><%= item.title %></td>
-                            <td data-label="Price" class="item-price">$<%= item.price %></td>
-                            <td data-label="Qty" style="font-family: 'Orbitron', sans-serif; color: #777;">0<%= item.quantity %></td>
-                            <td data-label="Total" class="item-total">$<%= item.price * item.quantity %></td>
+
+                            <td data-label="Account" class="item-name">
+                                <%= item.title %> <!-- Tên game -->
+                            </td>
+
+                            <td data-label="Price" class="item-price">
+                                $<%= price.toLocaleString() %> <!-- Format giá đẹp: 1,000 -->
+                            </td>
+
+                            <td data-label="Qty" style="font-family: 'Orbitron', sans-serif; color: #777;">
+                                <%= qty %> <!-- Số lượng -->
+                            </td>
+
+                            <td data-label="Total" class="item-total">
+                                $<%= (price * qty).toLocaleString() %> <!-- Tổng = giá × số lượng -->
+                            </td>
+
                             <td data-label="Del">
+                                <!-- Link xóa sản phẩm khỏi giỏ -->
+                                <!-- backend yêu cầu route: GET /cart/remove/:gameId -->
                                 <a href="/cart/remove/<%= item.gameId %>" class="btn-remove">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
-                    <% }) %>
+
+                    <% }) %> <!-- Kết thúc vòng lặp -->
                 </tbody>
             </table>
 
             <div class="cart-summary">
                 <div class="total-price">
-                    <span class="total-label">Tổng thanh toán:</span> <span>$<%= totalPrice %></span>
+                    <!-- Hiển thị tổng giá giỏ hàng -->
+                    <!-- totalPrice phải được controller gửi xuống view -->
+                    <span class="total-label">Tổng thanh toán:</span> 
+                    <span>$<%= (totalPrice || 0).toLocaleString() %></span>
                 </div>
+
+                <!-- Button để sang trang checkout -->
+                <!-- backend cần route GET /cart/checkout -->
                 <a href="/cart/checkout" class="btn-checkout">
                     Xác nhận mua: <i class="fas fa-angle-double-right"></i>
                 </a>
@@ -322,4 +353,5 @@
     </div>
 
 </body>
+
 </html>
